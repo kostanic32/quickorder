@@ -1,4 +1,4 @@
-dodajem script.js
+public/script.js
 document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript radi!');
   const params = new URLSearchParams(window.location.search);
