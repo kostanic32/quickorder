@@ -1,4 +1,11 @@
 h1 {
   color: #6a4a31;
-
 }
+
+.order-time {
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
