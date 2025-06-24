@@ -1,31 +1,229 @@
 
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>QuickOrder - Meni</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dorin-prototip</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+  <header>
+    <img src="images/terzo-logo.png" alt="Logo konobe Terzo" id="logo">
+    <h1>
+      Naša konoba živi tradiciju još od davne <b>1883.</b> godine.<br>
+      Ovdje uživate u domaćoj hrani, opuštenoj atmosferi i toplini istinskog dalmatinskog gostoprimstva.<br>Budite dio
+      naše
+      priče.
+    </h1>
+    <h2>
+      Jer pravi užitak je u detaljima, mirisima i ljudima.
+    </h2>
+  </header>
+
   <main>
-    <h3>Kava</h3>
+    <a href="#scroll">
+      <h5>Meni</h5>
+    </a>
+
+    <h3 id="scroll">☕ Topli napitci:</h3>
+
+    <div class="menu-divider"></div>
+
     <div class="product-row">
       <span class="product-name">Espresso</span>
-      <span class="price-box" data-price="1.5">1,50 €</span>
-      <button class="btn-minus">-</button>
-      <span class="count-box">0</span>
-      <button class="btn-plus">+</button>
+      <span class="price-box" data-price="2">2 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
     </div>
+
     <div class="product-row">
-      <span class="product-name">Macchiato</span>
-      <span class="price-box" data-price="1.7">1,70 €</span>
-      <button class="btn-minus">-</button>
-      <span class="count-box">0</span>
-      <button class="btn-plus">+</button>
+      <span class="product-name">Mala kava s mlijekom</span>
+      <span class="price-box" data-price="3">3 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
     </div>
-    <div id="total">Ukupno: <span id="total-price">0,00 €</span></div>
-    <button id="send-whatsapp">Pošalji narudžbu</button>
+
+
+    <div class="product-row">
+      <span class="product-name">Velika kava s mlijekom</span>
+      <span class="price-box" data-price="2.00">2,00 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+
+    <div class="product-row">
+      <span class="product-name">Bijela kava</span>
+      <span class="price-box" data-price="2.30">2,30 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <span class="product-name">Nescaffe čokolada</span>
+      <span class="price-box" data-price="2.50">2,50 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <span class="product-name">Nescaffe vanilija</span>
+      <span class="price-box" data-price="2.50">2,50 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <span class="product-name">Nescaffe classic</span>
+      <span class="price-box" data-price="2.50">2,50 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <span class="product-name">Ledena kava</span>
+      <span class="price-box" data-price="4.50">4,50 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <h3>🍹 Bezalkoholna pića:</h3>
+
+    <div class="menu-divider"></div>
+
+    <div class="product-row">
+      <span class="product-name">Sok naranča <br> 0,3 dl</span>
+      <span class="price-box" data-price="2.0">2,50 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <span class="product-name">Sok naranča <br> 0,5 dl</span>
+      <span class="price-box" data-price="3.10">3,10 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+
+    <div class="product-row">
+      <span class="product-name">Sok limun <br> 0,3 dl</span>
+      <span class="price-box" data-price="2.50">2,50 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+
+    <div class="product-row">
+      <span class="product-name">Sok limun <br> 0,5 dl</span>
+      <span class="price-box" data-price="3.10">3,10 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <h3>🥤 Gazirani napitci:</h3>
+
+    <div class="menu-divider"></div>
+
+    <div class="product-row">
+      <span class="product-name">Mineralna voda <br>0.33 dl</span>
+      <span class="price-box" data-price="2.00">2,00 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <span class="product-name">Limunska trava <br>0.33 dl</span>
+      <span class="price-box" data-price="2.40">2,40 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+
+    <div class="product-row">
+      <span class="product-name">Coca cola</span>
+      <span class="price-box" data-price="2.30">2,30 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
+
+    <div class="product-row">
+      <span class="product-name">Fanta</span>
+      <span class="price-box" data-price="2.30">2,30 €</span>
+      <div class="counter">
+        <button class="btn-minus">-</button>
+        <span class="count-box">0</span>
+        <button class="btn-plus">+</button>
+      </div>
+    </div>
+
   </main>
+
+  <footer>
+    <h4>Radno vrijeme: <b>08:00 – 00:00 </b><br>
+      Adresa: <b>Drvenik, Donja vala</b><br>
+      Instagram: <a href="https://instagram.com/terzo1883" target="_blank"
+        rel="noopener noreferrer"><b>@terzo1883</b></a></h4>
+  </footer>
+
+  <div class="order-summary">
+    <button id="send-whatsapp" class="checkout-btn">Pošalji narudžbu</button>
+    <span id="total-price" class="total-box">0,00 €</span>
+  </div>
+
   <script src="script.js"></script>
+
 </body>
+
 </html>
