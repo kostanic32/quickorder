@@ -1,0 +1,33 @@
+dodajem waiter.html
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>Konobar - Narudžbe</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .order { background: #f1f1f1; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Primljene narudžbe</h1>
+  <div id="orders"></div>
+
+  <script>
+    const ws = new WebSocket(`ws://${location.host}`);
+    ws.onmessage = (event) => {
+      const order = JSON.parse(event.data);
+      const div = document.createElement('div');
+      div.className = 'order';
+      div.innerHTML = `
+        <strong>Stol ${order.table}</strong><br>
+        ${order.items.map(item => `${item.name} (${item.count})`).join('<br>')}
+        <br><button onclick="this.parentElement.remove()">Obriši</button>
+      `;
+      document.getElementById('orders').prepend(div);
+      const audio = new Audio('notify.mp3');
+      audio.play().catch(() => {});
+    };
+  </script>
+</body>
+</html>
