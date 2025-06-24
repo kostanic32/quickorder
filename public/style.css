@@ -73,7 +73,7 @@ h1 {
 h2 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  color: #6a2c2c;
+  color: #6a4a31;
   font-size: 1rem;
   text-align: center;
   margin: 1rem 0rem 0 1rem;
@@ -107,6 +107,7 @@ h5 {
   font-size: 5rem;
   line-height: 1.1;
   margin: -1rem 0;
+  margin-top: 2rem;  
   text-align: center;
   color: #6a4a31;
   cursor: pointer;
