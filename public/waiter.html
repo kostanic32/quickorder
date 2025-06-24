@@ -11,37 +11,45 @@
   <h1>Primljene narudžbe</h1>
   <ul id="orders"></ul>
   
+<script>
+  function appendOrder(order) {
+    const li = document.createElement('li');
 
-  <script>
-    function appendOrder(order) {
-      const li = document.createElement('li');
-     li.innerHTML = `<strong>Stol ${order.table} (${order.time}):</strong><br>` +
-  order.items.map(i => `${i.name} (${i.count})`).join('<br>');
+    const header = document.createElement('strong');
+    header.textContent = `Stol ${order.table} ${order.time}:`;
+    li.appendChild(header);
 
+    const itemList = document.createElement('ul');
+    order.items.forEach(item => {
+      const itemLi = document.createElement('li');
+      itemLi.textContent = `${item.name} ${item.count}`;
+      itemList.appendChild(itemLi);
+    });
+    li.appendChild(itemList);
 
+    const btn = document.createElement('button');
+    btn.textContent = 'Obriši';
+    btn.onclick = () => li.remove();
+    li.appendChild(btn);
 
-      const btn = document.createElement('button');
-      btn.textContent = 'Obriši';
-      btn.onclick = () => li.remove();
-      li.appendChild(btn);
+    document.getElementById('orders').prepend(li);
+  }
 
-      document.getElementById('orders').prepend(li);
-    }
+  // Dohvati sve stare narudžbe
+  fetch('/orders')
+    .then(response => response.json())
+    .then(orders => {
+      orders.forEach(order => appendOrder(order));
+    });
 
-    // Dohvati sve stare narudžbe
-    fetch('/orders')
-      .then(response => response.json())
-      .then(orders => {
-        orders.forEach(order => appendOrder(order));
-      });
+  // WebSocket za nove narudžbe
+  const socket = new WebSocket(`wss://${window.location.host}`);
 
-    // WebSocket za nove narudžbe
-    const socket = new WebSocket(`wss://${window.location.host}`);
+  socket.onmessage = function(event) {
+    const order = JSON.parse(event.data);
+    appendOrder(order);
+  };
+</script>
 
-    socket.onmessage = function(event) {
-      const order = JSON.parse(event.data);
-      appendOrder(order);
-    };
-  </script>
 </body>
 </html>
