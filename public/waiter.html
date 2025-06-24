@@ -10,20 +10,31 @@
   <ul id="orders"></ul>
 
   <script>
-   const socket = new WebSocket(`wss://${window.location.host}`);
-    
-    socket.onmessage = function(event) {
-      const order = JSON.parse(event.data);
+    function appendOrder(order) {
       const li = document.createElement('li');
       li.textContent = `Stol ${order.table}: ` + order.items.map(i => `${i.name} (${i.count})`).join(', ');
 
-      // Dodaj gumb za brisanje
       const btn = document.createElement('button');
       btn.textContent = 'Obriši';
       btn.onclick = () => li.remove();
       li.appendChild(btn);
 
       document.getElementById('orders').appendChild(li);
+    }
+
+    // Dohvati sve stare narudžbe
+    fetch('/orders')
+      .then(response => response.json())
+      .then(orders => {
+        orders.forEach(order => appendOrder(order));
+      });
+
+    // WebSocket za nove narudžbe
+    const socket = new WebSocket(`wss://${window.location.host}`);
+
+    socket.onmessage = function(event) {
+      const order = JSON.parse(event.data);
+      appendOrder(order);
     };
   </script>
 </body>
