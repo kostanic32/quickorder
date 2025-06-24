@@ -24,7 +24,7 @@ wss.on('connection', ws => {
 app.post('/webhook/order', (req, res) => {
   const order = req.body;
   const now = new Date();
-  order.time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  order.time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit'});
   console.log('Primljena narudžba:', order);
   orderHistory.push(order);
 
