@@ -1,0 +1,31 @@
+style.css
+body {
+  font-family: sans-serif;
+  margin: 2rem;
+}
+
+.product-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.price-box {
+  width: 60px;
+  text-align: right;
+}
+
+.count-box {
+  width: 20px;
+  text-align: center;
+}
+
+.highlight {
+  background-color: #f0f0f0;
+}
+
+#total {
+  margin-top: 1rem;
+  font-weight: bold;
+}
