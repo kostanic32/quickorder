@@ -23,7 +23,7 @@
     const itemList = document.createElement('ul');
     order.items.forEach(item => {
       const itemLi = document.createElement('li');
-      itemLi.textContent = `${item.name} ${item.count}`;
+      itemLi.innerHTML = `<span class="item-name">${item.name}</span> <span class="item-count">x${item.count}</span>`;
       itemList.appendChild(itemLi);
     });
     li.appendChild(itemList);
