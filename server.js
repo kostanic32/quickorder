@@ -22,7 +22,10 @@ wss.on('connection', ws => {
 });
 
 app.post('/webhook/order', (req, res) => {
-  const order = req.body;
+  const order = {
+  ...req.body,
+  time: new Date().toLocaleString('hr-HR')
+};
   console.log('Primljena narudžba:', order);
   orderHistory.push(order); // spremi u povijest
 
