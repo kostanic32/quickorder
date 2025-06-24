@@ -234,7 +234,7 @@ s .count-box {
   align-items: center;
   background: #fff8f0;
   box-shadow: 0 -2px 16px rgba(139, 69, 19, 0.08);
-   padding: 0.8rem 1rem;
+  padding: 3% 3%;
   border-radius: 16px 16px 0 0;
 }
 
