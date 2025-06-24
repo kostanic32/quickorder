@@ -1,0 +1,31 @@
+public/index.html
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>QuickOrder - Meni</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h3>Kava</h3>
+    <div class="product-row">
+      <span class="product-name">Espresso</span>
+      <span class="price-box" data-price="1.5">1,50 €</span>
+      <button class="btn-minus">-</button>
+      <span class="count-box">0</span>
+      <button class="btn-plus">+</button>
+    </div>
+    <div class="product-row">
+      <span class="product-name">Macchiato</span>
+      <span class="price-box" data-price="1.7">1,70 €</span>
+      <button class="btn-minus">-</button>
+      <span class="count-box">0</span>
+      <button class="btn-plus">+</button>
+    </div>
+    <div id="total">Ukupno: <span id="total-price">0,00 €</span></div>
+    <button id="send-whatsapp">Pošalji narudžbu</button>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
