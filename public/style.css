@@ -112,6 +112,10 @@ h5 {
   cursor: pointer;
 }
 
+footer {
+max-height: 6%;
+}
+
 footer a {
   font-family: 'Montserrat', sans-serif;
   color: inherit;
