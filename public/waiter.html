@@ -13,7 +13,7 @@
   <script>
     function appendOrder(order) {
       const li = document.createElement('li');
-      li.textContent = `Stol ${order.table}: ` + order.items.map(i => `${i.name} (${i.count})`).join(', ');
+      li.textContent = `Stol ${order.table} (${order.time}): ` + order.items.map(i => `${i.name} (${i.count})`).join(', ');
 
       const btn = document.createElement('button');
       btn.textContent = 'Obriši';
