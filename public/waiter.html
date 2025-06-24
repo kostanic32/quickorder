@@ -1,0 +1,30 @@
+waiter.html
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>QuickOrder - Konobar</title>
+</head>
+<body>
+  <h1>Primljene narudžbe</h1>
+  <ul id="orders"></ul>
+
+  <script>
+    const socket = new WebSocket(`ws://${window.location.host}`);
+
+    socket.onmessage = function(event) {
+      const order = JSON.parse(event.data);
+      const li = document.createElement('li');
+      li.textContent = `Stol ${order.table}: ` + order.items.map(i => `${i.name} (${i.count})`).join(', ');
+
+      // Dodaj gumb za brisanje
+      const btn = document.createElement('button');
+      btn.textContent = 'Obriši';
+      btn.onclick = () => li.remove();
+      li.appendChild(btn);
+
+      document.getElementById('orders').appendChild(li);
+    };
+  </script>
+</body>
+</html>
