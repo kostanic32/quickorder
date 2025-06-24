@@ -10,8 +10,8 @@
   <ul id="orders"></ul>
 
   <script>
-    const socket = new WebSocket(`ws://${window.location.host}`);
-
+   const socket = new WebSocket(`wss://${window.location.host}`);
+    
     socket.onmessage = function(event) {
       const order = JSON.parse(event.data);
       const li = document.createElement('li');
