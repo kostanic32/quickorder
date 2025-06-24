@@ -1,31 +1,311 @@
 
+@font-face {
+  font-family: 'Bucklane Script';
+  src: url('fonts/BucklaneScript-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 15px;
+}
+
 body {
-  font-family: sans-serif;
-  margin: 2rem;
+  background-color: #f4e3d7;
+  margin: 0;
+  padding: 0;
 }
 
-.product-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 0.5rem 0;
+header {
+  width: 90%;
+  max-width: 90%;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-.price-box {
-  width: 60px;
-  text-align: right;
+
+main {
+  width: 90%;
+  max-width: 90%;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-.count-box {
-  width: 20px;
+main,
+main * {
+  font-family: 'Montserrat', sans-serif;
+  color: #6a4a31;
+  /* ili #6a462c */
+}
+
+.menu-divider {
+  width: 90%;
+  max-width: 90%;
+  height: 3px;
+  background: #e3c9b1;
+  margin: 0.5rem auto 1.1rem auto;
+  border-radius: 2px;
+}
+
+#logo {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  height: auto;
+}
+
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 450;
+  color: #6a462c;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0.2rem 1rem 0 1rem;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #6a2c2c;
+  font-size: 1rem;
+  text-align: center;
+  margin: 1rem 0rem 0 1rem;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #6a4a31;
+  margin: 1rem 0 1rem 0;
   text-align: center;
 }
 
-.highlight {
-  background-color: #f0f0f0;
+h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #6a4a31;
+  margin: 1rem 0 5rem 0;
+  text-align: center;
+  line-height: 1.5rem;
 }
 
-#total {
-  margin-top: 1rem;
-  font-weight: bold;
+h5 {
+  font-family: 'Bucklane Script', cursive;
+  font-weight: 450;
+  font-size: 5rem;
+  line-height: 1.1;
+  margin: -1rem 0;
+  text-align: center;
+  color: #6a4a31;
+  cursor: pointer;
+}
+
+footer a {
+  font-family: 'Montserrat', sans-serif;
+  color: inherit;
+}
+
+/*PROIZVODI*/
+
+.product-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff8f0;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 6px rgba(139, 69, 19, 0.08);
+  flex-wrap: nowrap;
+  overflow: hidden;
+  transition: background-color 0.4s ease; /* glatka tranzicija */
+}
+
+.product-row.highlight {
+  font-weight: 600;
+  background-color: #ebd0bb;
+  box-shadow: 0 2px 6px rgba(139, 69, 19, 0.08);
+  transition: background-color 0.4s ease;
+}
+
+.product-name {
+  flex: 0 0 40%;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  min-width: 110px;
+  justify-content: space-between;
+}
+
+.btn-minus,
+.btn-plus {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  color: #fff8f0;
+  background: #6a462c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.btn-minus:hover,
+.btn-plus:hover {
+  background: #8b4513;
+  color: #fff8f0;
+}
+
+s .count-box {
+  min-width: 30px;
+  padding: 0.15rem 0.4rem;
+  font-size: 1rem;
+  flex-shrink: 1;
+  text-align: center;
+  background: #f4e3d7;
+  border-radius: 6px;
+  color: #6a4a31;
+  font-family: 'Montserrat', sans-serif;
+  white-space: nowrap;
+}
+
+/* Opcionalno za manje ekrane */
+@media (max-width: 320px) {
+  .counter {
+    min-width: 90px;
+  }
+
+  .btn-minus,
+  .btn-plus {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+  }
+
+  .count-box {
+    min-width: 24px;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.9rem;
+  }
+}
+
+
+/*BUTTON PROVIJERA*/
+.order-summary {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 84%;
+  max-width: 84%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff8f0;
+  box-shadow: 0 -2px 16px rgba(139, 69, 19, 0.08);
+  padding: 3% 3%;
+  border-radius: 16px 16px 0 0;
+}
+
+#checkout-btn {
+  background: #6a4a31;
+  color: #fff8f0;
+  border: none;
+  border-radius: 8px;
+  padding: 0.38em 1em;
+  font-size: 0.96rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 2px rgba(139, 69, 19, 0.05);
+}
+
+#checkout-btn:hover {
+  background: #8b4513;
+}
+
+.total-box {
+  background: #f4e3d7;
+  border-radius: 8px;
+  color: #6a4a31;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.04rem;
+  padding: 0.23em 1em;
+  min-width: 80px;
+  text-align: right;
+  margin-left: 1rem;
+  box-shadow: 0 1px 3px rgba(139, 69, 19, 0.06);
+}
+
+
+/*html2*/
+
+.checkout-btn {
+  background: #6a4a31;
+  color: #fff8f0;
+  border: none;
+  border-radius: 8px;
+  padding: 0.38em 1em;
+  font-size: 0.96rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+  box-shadow: 0 1px 2px rgba(139, 69, 19, 0.05);
+  display: inline-block;
+}
+
+.checkout-btn:hover {
+  background: #8b4513;
+}
+
+/*BUTTON animacija*/
+
+collapsible {
+  overflow: hidden;
+  max-height: 1000px;
+  /* dovoljno visoko za sadržaj */
+  opacity: 1;
+  transform: translateY(0);
+  transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+}
+
+.collapsible.hidden {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: translateY(-20px);
 }
