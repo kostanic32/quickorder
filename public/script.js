@@ -81,7 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(res => res.json())
       .then(data => {
-        alert("Narudžba je poslana!");
+       const alertBox = document.getElementById('custom-alert');
+alertBox.textContent = "Hvala! Vaša narudžba je uspješno zaprimljena.";
+alertBox.classList.add('show');
+setTimeout(() => {
+  alertBox.classList.remove('show');
+}, 3000);
+
         document.querySelectorAll('.product-row').forEach(row => {
           row.querySelector('.count-box').textContent = '0';
           updateHighlight(row);
