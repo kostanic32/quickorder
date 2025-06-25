@@ -11,6 +11,8 @@ self.addEventListener('install', (e) => {
         '/images/favicon-96x96.png',
         '/images/web-app-manifest-192x192.png',
         '/images/web-app-manifest-512x512.png',
+        '/waiter.html',
+'/waiter.css'
       ]);
     })
   );
