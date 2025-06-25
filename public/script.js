@@ -23,6 +23,9 @@ document.getElementById('send-whatsapp').addEventListener('click', () => {
   }
 
   const now = new Date();
+  console.log("Lokalno vrijeme:", now);
+console.log("Timezone offset (min):", now.getTimezoneOffset());
+
   const time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' });
 
   const order = { table, items, time };
