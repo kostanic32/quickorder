@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 let clients = [];
-let orderHistory = []; // spremi narudžbe
+let orderHistory = [];
 
 wss.on('connection', ws => {
   clients.push(ws);
@@ -23,8 +23,14 @@ wss.on('connection', ws => {
 
 app.post('/webhook/order', (req, res) => {
   const order = req.body;
+
+  // Ručno prilagođavanje vremena za hrvatsku vremensku zonu (UTC+2)
   const now = new Date();
-  order.time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit'});
+  now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + 120);
+  const time = now.toISOString().substr(11, 5); // format HH:MM
+
+  order.time = time;
+
   console.log('Primljena narudžba:', order);
   orderHistory.push(order);
 
@@ -37,11 +43,9 @@ app.post('/webhook/order', (req, res) => {
   res.status(200).send({ status: 'OK' });
 });
 
-// novi GET endpoint za dohvat svih narudžbi
 app.get('/orders', (req, res) => {
   res.json(orderHistory);
 });
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log(`Server pokrenut na http://localhost:${PORT}`));
-
