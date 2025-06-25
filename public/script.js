@@ -1,60 +1,19 @@
 
-document.getElementById('send-whatsapp').addEventListener('click', () => {
-  const productRows = document.querySelectorAll('.product-row');
-  const items = [];
-
-  productRows.forEach(row => {
-    const name = row.querySelector('.product-name').textContent.trim();
-    const count = parseInt(row.querySelector('.count-box').textContent.trim());
-    if (count > 0) {
-      items.push({ name, count });
-    }
-  });
-
-  if (items.length === 0) {
-    alert("Niste odabrali nijedan proizvod.");
-    return;
-  }
-
-  const table = prompt("Unesite broj stola:");
-  if (!table) {
-    alert("Broj stola je obavezan.");
-    return;
-  }
-
-  const now = new Date();
-  console.log("Lokalno vrijeme:", now);
-console.log("Timezone offset (min):", now.getTimezoneOffset());
-
-  const time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' });
-
-  const order = { table, items, time };
-
-  fetch('/webhook/order', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(order)
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert("Narudžba je poslana!");
-    productRows.forEach(row => {
-      row.querySelector('.count-box').textContent = '0';
-    });
-  })
-  .catch(err => {
-    alert("Došlo je do greške. Pokušajte ponovno.");
-    console.error(err);
-  });
-});
-
+document.addEventListener('DOMContentLoaded', () => {
+  function updateHighlight(row) {
     const countBox = row.querySelector('.count-box');
     const count = parseInt(countBox.textContent) || 0;
-    if (count > 0) {
-      row.classList.add('highlight');
-    } else {
-      row.classList.remove('highlight');
-    }
+    row.classList.toggle('highlight', count > 0);
+  }
+
+  function updateTotal() {
+    let total = 0;
+    document.querySelectorAll('.product-row').forEach(row => {
+      const count = parseInt(row.querySelector('.count-box').textContent) || 0;
+      const price = parseFloat(row.querySelector('.price-box').dataset.price) || 0;
+      total += count * price;
+    });
+    document.getElementById('total-price').textContent = `${total.toFixed(2)} €`;
   }
 
   document.querySelectorAll('.product-row').forEach(row => {
@@ -63,8 +22,7 @@ console.log("Timezone offset (min):", now.getTimezoneOffset());
     const countBox = row.querySelector('.count-box');
 
     plusBtn.addEventListener('click', () => {
-      let value = parseInt(countBox.textContent);
-      countBox.textContent = value + 1;
+      countBox.textContent = parseInt(countBox.textContent) + 1;
       updateHighlight(row);
       updateTotal();
     });
@@ -81,21 +39,63 @@ console.log("Timezone offset (min):", now.getTimezoneOffset());
     updateHighlight(row);
   });
 
-  const main = document.querySelector('main');
-  if (!main) return;
+  // Pošalji narudžbu
+  document.getElementById('send-whatsapp').addEventListener('click', () => {
+    const productRows = document.querySelectorAll('.product-row');
+    const items = [];
 
-  const headers = main.querySelectorAll('h3');
-  headers.forEach((header, index) => {
+    productRows.forEach(row => {
+      const name = row.querySelector('.product-name').textContent.trim();
+      const count = parseInt(row.querySelector('.count-box').textContent.trim());
+      if (count > 0) {
+        items.push({ name, count });
+      }
+    });
+
+    if (items.length === 0) {
+      alert("Niste odabrali nijedan proizvod.");
+      return;
+    }
+
+    const table = prompt("Unesite broj stola:");
+    if (!table) {
+      alert("Broj stola je obavezan.");
+      return;
+    }
+
+    const now = new Date();
+    const time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' });
+
+    const order = { table, items, time };
+
+    fetch('/webhook/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order)
+    })
+    .then(res => res.json())
+    .then(() => {
+      alert("Narudžba je poslana!");
+      productRows.forEach(row => row.querySelector('.count-box').textContent = '0');
+      updateTotal();
+    })
+    .catch(err => {
+      alert("Došlo je do greške. Pokušajte ponovno.");
+      console.error(err);
+    });
+  });
+
+  // Glava za sekcije menija
+  const headers = document.querySelectorAll('main h3');
+  headers.forEach(header => {
     let elem = header.nextElementSibling;
     while (elem && elem.tagName !== 'H3') {
-      if (index !== 0 && !elem.classList.contains('menu-divider')) {
+      if (!elem.classList.contains('menu-divider')) {
         elem.style.display = 'none';
       }
       elem = elem.nextElementSibling;
     }
-  });
 
-  headers.forEach(header => {
     header.style.cursor = 'pointer';
     header.addEventListener('click', () => {
       let sibling = header.nextElementSibling;
@@ -108,51 +108,14 @@ console.log("Timezone offset (min):", now.getTimezoneOffset());
     });
   });
 
-  const orderBtn = document.getElementById('send-whatsapp');
-  if (orderBtn) {
-    orderBtn.addEventListener('click', () => {
-      const items = [];
-      document.querySelectorAll('.product-row').forEach(row => {
-        const name = row.querySelector('.product-name').textContent.trim();
-        const count = parseInt(row.querySelector('.count-box').textContent) || 0;
-        if (count > 0) {
-          items.push({ name, count });
-        }
-      });
-
-      if (items.length === 0) {
-        alert("Niste odabrali nijedan proizvod.");
-        return;
+  // Glatko scrollanje
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
       }
-
-      fetch('/webhook/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ table: tableNumber, items })
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Narudžba je poslana!");
-        } else {
-          alert("Greška pri slanju narudžbe.");
-        }
-      })
-      .catch(error => {
-        console.error("Greška:", error);
-        alert("Greška u mrežnoj komunikaciji.");
-      });
     });
-  }
-
-  updateTotal();
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
   });
 });
