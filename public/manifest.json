@@ -1,0 +1,20 @@
+{
+  "name": "QuickOrder Konobar",
+  "short_name": "Konobar",
+  "start_url": "/waiter.html",
+  "display": "standalone",
+  "background_color": "#f4e3d7",
+  "theme_color": "#6a4a31",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
