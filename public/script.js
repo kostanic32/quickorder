@@ -1,31 +1,50 @@
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('JavaScript radi!');
+document.getElementById('send-whatsapp').addEventListener('click', () => {
+  const productRows = document.querySelectorAll('.product-row');
+  const items = [];
 
-  const params = new URLSearchParams(window.location.search);
-  const tableNumber = params.get('table') || 'nepoznat';
-
-  function updateTotal() {
-    let total = 0;
-    document.querySelectorAll('.product-row').forEach(row => {
-      const priceBox = row.querySelector('.price-box');
-      const countBox = row.querySelector('.count-box');
-      if (priceBox && countBox) {
-        let priceStr = priceBox.getAttribute('data-price');
-        if (priceStr) {
-          const price = parseFloat(priceStr.replace(',', '.'));
-          const count = parseInt(countBox.textContent) || 0;
-          total += price * count;
-        }
-      }
-    });
-    const totalPriceEl = document.getElementById('total-price');
-    if (totalPriceEl) {
-      totalPriceEl.textContent = total.toFixed(2).replace('.', ',') + ' €';
+  productRows.forEach(row => {
+    const name = row.querySelector('.product-name').textContent.trim();
+    const count = parseInt(row.querySelector('.count-box').textContent.trim());
+    if (count > 0) {
+      items.push({ name, count });
     }
+  });
+
+  if (items.length === 0) {
+    alert("Niste odabrali nijedan proizvod.");
+    return;
   }
 
-  function updateHighlight(row) {
+  const table = prompt("Unesite broj stola:");
+  if (!table) {
+    alert("Broj stola je obavezan.");
+    return;
+  }
+
+  const now = new Date();
+  const time = now.toLocaleTimeString('hr-HR', { hour: '2-digit', minute: '2-digit' });
+
+  const order = { table, items, time };
+
+  fetch('/webhook/order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(order)
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Narudžba je poslana!");
+    productRows.forEach(row => {
+      row.querySelector('.count-box').textContent = '0';
+    });
+  })
+  .catch(err => {
+    alert("Došlo je do greške. Pokušajte ponovno.");
+    console.error(err);
+  });
+});
+
     const countBox = row.querySelector('.count-box');
     const count = parseInt(countBox.textContent) || 0;
     if (count > 0) {
