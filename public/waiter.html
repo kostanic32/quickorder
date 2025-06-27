@@ -49,12 +49,19 @@
     socket.onmessage = function(event) {
       const order = JSON.parse(event.data);
       appendOrder(order);
-      document.getElementById('notification-sound').play();
+
+      const sound = document.getElementById('notification-sound');
+      sound.play();
+
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200]);
+      }
     };
   </script>
 
   <audio id="notification-sound" src="images/ding.mp3" preload="auto"></audio>
 </body>
 </html>
+
 
 
