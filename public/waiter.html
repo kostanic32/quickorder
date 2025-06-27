@@ -7,52 +7,54 @@
   <link rel="stylesheet" href="waiter.css">
   <link rel="manifest" href="/images/waiter.webmanifest">
 </head>
+
 <body>
   <h1>Primljene narudžbe</h1>
   <ul id="orders"></ul>
-  
-<script>
-  function appendOrder(order) {
-    const li = document.createElement('li');
 
-    const header = document.createElement('strong');
-    header.className = 'order-header';
-    header.innerHTML = `Stol ${order.table} <span class="order-time">${order.time}</span> :`;
-    li.appendChild(header);
+  <script>
+    function appendOrder(order) {
+      const li = document.createElement('li');
 
-    const itemList = document.createElement('ul');
-    order.items.forEach(item => {
-      const itemLi = document.createElement('li');
-      itemLi.innerHTML = `<span class="item-name">${item.name}</span> <span class="item-count">x${item.count}</span>`;
-      itemList.appendChild(itemLi);
-    });
-    li.appendChild(itemList);
+      const header = document.createElement('strong');
+      header.className = 'order-header';
+      header.innerHTML = `Stol ${order.table} <span class="order-time">${order.time}</span> :`;
+      li.appendChild(header);
 
-    const btn = document.createElement('button');
-    btn.textContent = 'Obriši';
-    btn.onclick = () => li.remove();
-    li.appendChild(btn);
+      const itemList = document.createElement('ul');
+      order.items.forEach(item => {
+        const itemLi = document.createElement('li');
+        itemLi.innerHTML = `<span class="item-name">${item.name}</span> <span class="item-count">x${item.count}</span>`;
+        itemList.appendChild(itemLi);
+      });
+      li.appendChild(itemList);
 
-    document.getElementById('orders').prepend(li);
-  }
+      const btn = document.createElement('button');
+      btn.textContent = 'Obriši';
+      btn.onclick = () => li.remove();
+      li.appendChild(btn);
 
-  // Dohvati sve stare narudžbe
-  fetch('/orders')
-    .then(response => response.json())
-    .then(orders => {
-      orders.forEach(order => appendOrder(order));
-    });
+      document.getElementById('orders').prepend(li);
+    }
 
-  // WebSocket za nove narudžbe
-  const socket = new WebSocket(`wss://${window.location.host}`);
+    // Dohvati sve stare narudžbe
+    fetch('/orders')
+      .then(response => response.json())
+      .then(orders => {
+        orders.forEach(order => appendOrder(order));
+      });
 
-  socket.onmessage = function(event) {
-    const order = JSON.parse(event.data);
-    appendOrder(order);
-  };
-</script>
-<audio id="notification-sound" src="images/ding.mp3" preload="auto"></audio>
+    // WebSocket za nove narudžbe
+    const socket = new WebSocket(`wss://${window.location.host}`);
+    socket.onmessage = function(event) {
+      const order = JSON.parse(event.data);
+      appendOrder(order);
+      document.getElementById('notification-sound').play();
+    };
+  </script>
 
+  <audio id="notification-sound" src="images/ding.mp3" preload="auto"></audio>
 </body>
 </html>
-<link rel="manifest" href="/images/waiter.webmanifest">
+
+
